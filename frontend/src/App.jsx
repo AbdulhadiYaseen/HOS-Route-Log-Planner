@@ -149,6 +149,9 @@ const App = () => {
   // Top Nav indicators state
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const [notifications, setNotifications] = useState([
+    { id: 1, type: 'info', message: 'Connected to HOS compliance console.' }
+  ]);
 
   // AI Assistant drawer state
   const [isAiOpen, setIsAiOpen] = useState(false);
@@ -434,6 +437,34 @@ const App = () => {
       }
 
       setTripData(data);
+
+      // Generate dynamic notifications based on timeline results
+      const newAlerts = [];
+      newAlerts.push({
+        id: Date.now() + 1,
+        type: 'success',
+        message: `Route calculated: ${currentLocation} to ${dropoffLocation} (${data.routes.loaded.distance_miles + data.routes.deadhead.distance_miles} mi).`
+      });
+
+      const restStops = data.timeline.filter(e => e.activity.includes('Rest') || e.activity.includes('Break') || e.activity.includes('Fuel'));
+      if (restStops.length > 0) {
+        newAlerts.push({
+          id: Date.now() + 2,
+          type: 'warning',
+          message: `Shift Alert: ${restStops.length} mandatory rest breaks scheduled.`
+        });
+      }
+
+      const sleeps = data.timeline.filter(e => e.activity.includes('Sleeper') || e.activity.includes('Sleep'));
+      if (sleeps.length > 0) {
+        newAlerts.push({
+          id: Date.now() + 3,
+          type: 'alert',
+          message: `Sleeper Berth: 10-hour reset required at Stop ${data.timeline.indexOf(sleeps[0]) + 1}.`
+        });
+      }
+
+      setNotifications(prev => [...newAlerts, ...prev]);
     } catch (err) {
       setError(err.message || 'Could not connect to the backend server API.');
     } finally {
@@ -469,6 +500,15 @@ const App = () => {
 
       setSaveSuccess(true);
       fetchTripHistory(); // refresh sidebar list
+
+      setNotifications(prev => [
+        {
+          id: Date.now(),
+          type: 'success',
+          message: `Trip saved successfully: ${currentLocation} ➜ ${dropoffLocation}.`
+        },
+        ...prev
+      ]);
     } catch (err) {
       alert("Error saving trip: " + err.message);
     } finally {
@@ -534,13 +574,37 @@ const App = () => {
             </div>
             {isWorkspaceOpen && (
               <ul className="workspace-dropdown">
-                <li className="workspace-dropdown-item" onClick={() => { setCurrentWorkspace('Personal Fleet'); setIsWorkspaceOpen(false); }}>
+                <li className="workspace-dropdown-item" onClick={() => { 
+                  setCurrentWorkspace('Personal Fleet'); 
+                  setIsWorkspaceOpen(false);
+                  setNotifications(prev => [{
+                    id: Date.now(),
+                    type: 'info',
+                    message: `Connected to Workspace: Personal Fleet.`
+                  }, ...prev]);
+                }}>
                   🏢 Personal Fleet
                 </li>
-                <li className="workspace-dropdown-item" onClick={() => { setCurrentWorkspace('Spotter Logistics'); setIsWorkspaceOpen(false); }}>
+                <li className="workspace-dropdown-item" onClick={() => { 
+                  setCurrentWorkspace('Spotter Logistics'); 
+                  setIsWorkspaceOpen(false);
+                  setNotifications(prev => [{
+                    id: Date.now(),
+                    type: 'info',
+                    message: `Connected to Workspace: Spotter Logistics.`
+                  }, ...prev]);
+                }}>
                   🏢 Spotter Logistics
                 </li>
-                <li className="workspace-dropdown-item" onClick={() => { setCurrentWorkspace('Global Carrier Co'); setIsWorkspaceOpen(false); }}>
+                <li className="workspace-dropdown-item" onClick={() => { 
+                  setCurrentWorkspace('Global Carrier Co'); 
+                  setIsWorkspaceOpen(false);
+                  setNotifications(prev => [{
+                    id: Date.now(),
+                    type: 'info',
+                    message: `Connected to Workspace: Global Carrier Co.`
+                  }, ...prev]);
+                }}>
                   🏢 Global Carrier Co
                 </li>
               </ul>
@@ -606,13 +670,35 @@ const App = () => {
               
               <button className="top-nav-btn notification-btn" onClick={() => { setIsNotificationsOpen(!isNotificationsOpen); setIsProfileOpen(false); }}>
                 🔔
-                <span className="badge-count">2</span>
+                {notifications.length > 0 && (
+                  <span className="badge-count">{notifications.length}</span>
+                )}
               </button>
               {isNotificationsOpen && (
                 <div className="notification-popover">
-                  <h4>Notifications</h4>
-                  <div className="notification-item">🚨 <strong>Shift Alert</strong>: Rest break required in 2.5 hours.</div>
-                  <div className="notification-item">✅ <strong>Trip Saved</strong>: Route Chicago to Dallas successfully synced.</div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--border-color)', paddingBottom: '6px', marginBottom: '8px' }}>
+                    <h4 style={{ margin: 0 }}>Notifications</h4>
+                    <button 
+                      onClick={() => setNotifications([])} 
+                      style={{ background: 'none', border: 'none', fontSize: '11px', color: 'var(--color-text-muted)', cursor: 'pointer', fontWeight: 'bold' }}
+                    >
+                      Clear
+                    </button>
+                  </div>
+                  {notifications.length === 0 ? (
+                    <div style={{ fontSize: '12px', color: 'var(--color-text-muted)', padding: '12px 0', textAlign: 'center' }}>
+                      No new notifications
+                    </div>
+                  ) : (
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', maxHeight: '200px', overflowY: 'auto' }}>
+                      {notifications.map((notif) => (
+                        <div key={notif.id} className="notification-item" style={{ borderBottom: '1px solid #fdfcfb', paddingBottom: '4px' }}>
+                          {notif.type === 'success' ? '✅ ' : notif.type === 'warning' ? '🚨 ' : notif.type === 'info' ? '🏢 ' : '⚠️ '} 
+                          {notif.message}
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
               )}
               
