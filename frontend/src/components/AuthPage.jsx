@@ -14,9 +14,10 @@ export default function AuthPage({ navigate, onAuthSuccess }) {
     setError('');
     setLoading(true);
 
+    const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
     const url = authMode === 'login' 
-      ? 'http://localhost:8000/api/auth/login/' 
-      : 'http://localhost:8000/api/auth/signup/';
+      ? `${API_BASE_URL}/api/auth/login/` 
+      : `${API_BASE_URL}/api/auth/signup/`;
 
     const payload = authMode === 'login'
       ? { username, password }

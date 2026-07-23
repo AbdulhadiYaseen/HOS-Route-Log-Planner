@@ -103,6 +103,8 @@ const getLocalDateTimeString = () => {
   return `${year}-${month}-${day}T${hours}:${minutes}`;
 };
 
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+
 const App = () => {
   // Router State & Navigation
   const [currentPath, setCurrentPath] = useState(window.location.pathname);
@@ -163,7 +165,7 @@ const App = () => {
   const fetchTripHistory = useCallback(async () => {
     if (!currentUser) return;
     try {
-      const response = await fetch(`http://localhost:8000/api/trips/history/?user_id=${currentUser.user_id}`);
+      const response = await fetch(`${API_BASE_URL}/api/trips/history/?user_id=${currentUser.user_id}`);
       if (response.ok) {
         const data = await response.json();
         setSavedTrips(data);
@@ -412,7 +414,7 @@ const App = () => {
     setActiveTab(0);
 
     try {
-      const response = await fetch('http://localhost:8000/api/plan-trip/', {
+      const response = await fetch(`${API_BASE_URL}/api/plan-trip/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -446,7 +448,7 @@ const App = () => {
     setSaveSuccess(false);
 
     try {
-      const response = await fetch('http://localhost:8000/api/trips/save/', {
+      const response = await fetch(`${API_BASE_URL}/api/trips/save/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
