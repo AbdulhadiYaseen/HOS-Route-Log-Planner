@@ -5,6 +5,24 @@ export default function MarketingPage({ currentPath, navigate, isAuthenticated }
   // Who It's For persona switcher state
   const [activePersona, setActivePersona] = useState('Safety Managers');
 
+  // Contact form submission state
+  const [contactSuccess, setContactSuccess] = useState(false);
+  const [contactName, setContactName] = useState('');
+  const [contactEmail, setContactEmail] = useState('');
+  const [contactMsg, setContactMsg] = useState('');
+
+  const handleContactSubmit = (e) => {
+    e.preventDefault();
+    setContactSuccess(true);
+  };
+
+  const handleResetForm = () => {
+    setContactSuccess(false);
+    setContactName('');
+    setContactEmail('');
+    setContactMsg('');
+  };
+
   // Persona details copy mapping
   const personas = {
     'Safety Managers': {
@@ -376,7 +394,70 @@ export default function MarketingPage({ currentPath, navigate, isAuthenticated }
           </div>
         </section>
 
-        {/* 10. Call-To-Action Banner */}
+        {/* 10. Contact Us */}
+        <section className="m-section" id="contact">
+          <div className="m-showcase-header">
+            <h2>Get in Touch</h2>
+            <p>Have questions about compliance rules or fleet audits? Send us a message.</p>
+          </div>
+
+          <div className="m-contact-container" style={{ maxWidth: '600px', margin: '0 auto' }}>
+            <div className="m-contact-card" style={{ background: 'var(--m-bg-surface)', border: '1px solid var(--m-border)', borderRadius: '20px', padding: '40px', boxShadow: 'var(--m-shadow-xl)' }}>
+              {contactSuccess ? (
+                <div style={{ textAlign: 'center', padding: '20px 0' }}>
+                  <div style={{ fontSize: '48px', marginBottom: '16px' }}>✉️</div>
+                  <h4 style={{ fontSize: '18px', fontWeight: 'bold', marginBottom: '8px' }}>Thank you, {contactName}!</h4>
+                  <p style={{ color: 'var(--m-text-muted)', fontSize: '14px' }}>Your message has been sent. Our safety compliance desk will get back to you shortly.</p>
+                  <button className="m-btn-secondary" style={{ marginTop: '20px' }} onClick={handleResetForm}>
+                    Send another message
+                  </button>
+                </div>
+              ) : (
+                <form onSubmit={handleContactSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                  <div className="form-group" style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                    <label style={{ fontSize: '12px', fontWeight: '600', color: 'var(--m-text-main)' }}>Your Name</label>
+                    <input 
+                      type="text" 
+                      className="form-input" 
+                      value={contactName}
+                      onChange={(e) => setContactName(e.target.value)}
+                      placeholder="driver_bob"
+                      required
+                    />
+                  </div>
+                  <div className="form-group" style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                    <label style={{ fontSize: '12px', fontWeight: '600', color: 'var(--m-text-main)' }}>Email Address</label>
+                    <input 
+                      type="email" 
+                      className="form-input" 
+                      value={contactEmail}
+                      onChange={(e) => setContactEmail(e.target.value)}
+                      placeholder="bob@example.com"
+                      required
+                    />
+                  </div>
+                  <div className="form-group" style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                    <label style={{ fontSize: '12px', fontWeight: '600', color: 'var(--m-text-main)' }}>Your Message</label>
+                    <textarea 
+                      className="form-input" 
+                      rows="4"
+                      value={contactMsg}
+                      onChange={(e) => setContactMsg(e.target.value)}
+                      placeholder="Write your compliance question or feedback here..."
+                      style={{ resize: 'vertical', fontFamily: 'inherit', padding: '12px' }}
+                      required
+                    ></textarea>
+                  </div>
+                  <button type="submit" className="m-btn-cta" style={{ width: '100%' }}>
+                    Send Message ➔
+                  </button>
+                </form>
+              )}
+            </div>
+          </div>
+        </section>
+
+        {/* 11. Call-To-Action Banner */}
         <section className="m-section">
           <div className="m-cta-banner">
             <h2>Ready to Eliminate Compliance Risk?</h2>
