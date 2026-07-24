@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import '../marketing.css';
+import { Lightning3D, Envelope3D, User3D, Lock3D, Warning3D } from './Icon3D';
 
 export default function AuthPage({ navigate, onAuthSuccess }) {
   const [authMode, setAuthMode] = useState('login'); // 'login' or 'signup'
@@ -58,15 +59,15 @@ export default function AuthPage({ navigate, onAuthSuccess }) {
             style={{ justifyContent: 'center', marginBottom: '20px', fontSize: '24px' }}
             onClick={() => navigate('/')}
           >
-            ⚡ HOS Planner
+            <Lightning3D size={24} /> HOS Planner
           </div>
           <h2>{authMode === 'login' ? 'Sign in to HOS App' : 'Create driver account'}</h2>
           <p>{authMode === 'login' ? 'Enter credentials to access your routes logs' : 'Register details to track HOS compliance'}</p>
         </div>
 
         {error && (
-          <div className="auth-error" style={{ fontSize: '13px', padding: '12px', marginBottom: '20px' }}>
-            ⚠️ {error}
+          <div className="auth-error" style={{ fontSize: '13px', padding: '12px', marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <Warning3D size={14} /> {error}
           </div>
         )}
 
@@ -75,7 +76,7 @@ export default function AuthPage({ navigate, onAuthSuccess }) {
             <div className="form-group">
               <label>Email Address</label>
               <div className="input-with-icon">
-                <span className="input-icon">✉️</span>
+                <span className="input-icon"><Envelope3D size={16} /></span>
                 <input 
                   type="email" 
                   className="form-input" 
@@ -91,7 +92,7 @@ export default function AuthPage({ navigate, onAuthSuccess }) {
           <div className="form-group">
             <label>{authMode === 'login' ? 'Driver Username' : 'Driver Name (Username)'}</label>
             <div className="input-with-icon">
-              <span className="input-icon">👤</span>
+              <span className="input-icon"><User3D size={16} /></span>
               <input 
                 type="text" 
                 className="form-input" 
@@ -106,7 +107,7 @@ export default function AuthPage({ navigate, onAuthSuccess }) {
           <div className="form-group">
             <label>Secure Password</label>
             <div className="input-with-icon">
-              <span className="input-icon">🔒</span>
+              <span className="input-icon"><Lock3D size={16} /></span>
               <input 
                 type="password" 
                 className="form-input" 

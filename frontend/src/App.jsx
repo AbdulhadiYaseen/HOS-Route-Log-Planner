@@ -4,6 +4,21 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import MarketingPage from './components/MarketingPage';
 import AuthPage from './components/AuthPage';
+import { 
+  Lightning3D, 
+  Map3D, 
+  Clipboard3D, 
+  Clock3D, 
+  Bell3D, 
+  Robot3D, 
+  Building3D, 
+  Gear3D, 
+  Pin3D, 
+  Warning3D, 
+  Check3D,
+  Search3D,
+  User3D
+} from './components/Icon3D';
 
 const CITIES = [
   "Chicago, IL",
@@ -52,7 +67,7 @@ const CitySelector = ({ label, value, onChange, placeholder }) => {
     <div className="form-group" style={{ position: 'relative' }} ref={dropdownRef}>
       <label>{label}</label>
       <div className="input-with-icon">
-        <span className="input-icon">📍</span>
+        <span className="input-icon"><Pin3D size={16} /></span>
         <input
           type="text"
           className="form-input"
@@ -569,7 +584,10 @@ const App = () => {
           {/* Workspace Selector */}
           <div className="workspace-selector">
             <div className="workspace-btn" onClick={() => setIsWorkspaceOpen(!isWorkspaceOpen)}>
-              <span>🏢 {currentWorkspace}</span>
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                <Building3D size={16} />
+                {currentWorkspace}
+              </span>
               <span style={{ fontSize: '10px' }}>▼</span>
             </div>
             {isWorkspaceOpen && (
@@ -583,7 +601,7 @@ const App = () => {
                     message: `Connected to Workspace: Personal Fleet.`
                   }, ...prev]);
                 }}>
-                  🏢 Personal Fleet
+                  <Building3D size={14} style={{ marginRight: '6px' }} /> Personal Fleet
                 </li>
                 <li className="workspace-dropdown-item" onClick={() => { 
                   setCurrentWorkspace('Spotter Logistics'); 
@@ -594,7 +612,7 @@ const App = () => {
                     message: `Connected to Workspace: Spotter Logistics.`
                   }, ...prev]);
                 }}>
-                  🏢 Spotter Logistics
+                  <Building3D size={14} style={{ marginRight: '6px' }} /> Spotter Logistics
                 </li>
                 <li className="workspace-dropdown-item" onClick={() => { 
                   setCurrentWorkspace('Global Carrier Co'); 
@@ -605,14 +623,16 @@ const App = () => {
                     message: `Connected to Workspace: Global Carrier Co.`
                   }, ...prev]);
                 }}>
-                  🏢 Global Carrier Co
+                  <Building3D size={14} style={{ marginRight: '6px' }} /> Global Carrier Co
                 </li>
               </ul>
             )}
           </div>
 
           <div className="sidebar-logo" style={{ marginBottom: '20px' }}>
-            <h1 onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>⚡ HOS Planner</h1>
+            <h1 onClick={() => navigate('/')} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <Lightning3D size={20} /> HOS Planner
+            </h1>
             <p>FMCSA §395 PROPERTY CARRIER</p>
           </div>
 
@@ -621,29 +641,29 @@ const App = () => {
               className={`sidebar-nav-item ${activeView === 'plan' ? 'active' : ''}`}
               onClick={() => navigate('/app')}
             >
-              <span className="sidebar-nav-icon">🗺️</span>
+              <span className="sidebar-nav-icon"><Map3D size={18} /></span>
               <span>Plan Trip</span>
             </li>
             <li 
               className={`sidebar-nav-item ${activeView === 'logs' ? 'active' : ''}`}
               onClick={() => navigate('/app/logs')}
             >
-              <span className="sidebar-nav-icon">📋</span>
+              <span className="sidebar-nav-icon"><Clipboard3D size={18} /></span>
               <span>Daily Logs</span>
             </li>
             <li 
               className={`sidebar-nav-item ${activeView === 'history' ? 'active' : ''}`}
               onClick={() => navigate('/app/history')}
             >
-              <span className="sidebar-nav-icon">🕒</span>
+              <span className="sidebar-nav-icon"><Clock3D size={18} /></span>
               <span>Saved Trips</span>
             </li>
           </ul>
 
           <div className="sidebar-footer">
             <div className="user-badge">
-              <div className="user-name-display">
-                👤 <strong>{currentUser.username}</strong>
+              <div className="user-name-display" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                <User3D size={16} /> <strong>{currentUser.username}</strong>
               </div>
               <button className="btn-logout" onClick={handleLogout}>Log Out</button>
             </div>
@@ -664,12 +684,12 @@ const App = () => {
             
             <div className="top-nav-right">
               <div className="search-bar">
-                <span className="search-icon">🔍</span>
+                <span className="search-icon"><Search3D size={14} /></span>
                 <input type="text" placeholder="Search logs..." />
               </div>
               
               <button className="top-nav-btn notification-btn" onClick={() => { setIsNotificationsOpen(!isNotificationsOpen); setIsProfileOpen(false); }}>
-                🔔
+                <Bell3D size={18} />
                 {notifications.length > 0 && (
                   <span className="badge-count">{notifications.length}</span>
                 )}
@@ -692,8 +712,8 @@ const App = () => {
                   ) : (
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', maxHeight: '200px', overflowY: 'auto' }}>
                       {notifications.map((notif) => (
-                        <div key={notif.id} className="notification-item" style={{ borderBottom: '1px solid #fdfcfb', paddingBottom: '4px' }}>
-                          {notif.type === 'success' ? '✅ ' : notif.type === 'warning' ? '🚨 ' : notif.type === 'info' ? '🏢 ' : '⚠️ '} 
+                        <div key={notif.id} className="notification-item" style={{ borderBottom: '1px solid #fdfcfb', paddingBottom: '4px', display: 'flex', alignItems: 'center' }}>
+                          {notif.type === 'success' ? <Check3D size={14} style={{ marginRight: '6px' }} /> : notif.type === 'warning' ? <Warning3D size={14} style={{ marginRight: '6px' }} /> : notif.type === 'info' ? <Building3D size={14} style={{ marginRight: '6px' }} /> : <Warning3D size={14} style={{ marginRight: '6px' }} />} 
                           {notif.message}
                         </div>
                       ))}
@@ -702,8 +722,8 @@ const App = () => {
                 </div>
               )}
               
-              <button className="top-nav-btn ai-btn" onClick={() => setIsAiOpen(true)}>
-                🤖 Ask AI
+              <button className="top-nav-btn ai-btn" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }} onClick={() => setIsAiOpen(true)}>
+                <Robot3D size={16} /> Ask AI
               </button>
               
               <div className="profile-menu-container">
@@ -712,8 +732,8 @@ const App = () => {
                 </div>
                 {isProfileOpen && (
                   <div className="profile-dropdown">
-                    <div className="profile-dropdown-item" onClick={() => { navigate('/app'); setIsProfileOpen(false); }}>⚙️ Workspace Settings</div>
-                    <div className="profile-dropdown-item" style={{ borderTop: '1px solid #fafafa' }} onClick={handleLogout}>🚪 Log Out</div>
+                    <div className="profile-dropdown-item" style={{ display: 'flex', alignItems: 'center', gap: '6px' }} onClick={() => { navigate('/app'); setIsProfileOpen(false); }}><Gear3D size={14} /> Workspace Settings</div>
+                    <div className="profile-dropdown-item" style={{ borderTop: '1px solid #fafafa' }} onClick={handleLogout}>Log Out</div>
                   </div>
                 )}
               </div>
@@ -776,7 +796,7 @@ const App = () => {
                         <div className="form-group">
                           <label>Cycle Used (Hrs)</label>
                           <div className="input-with-icon">
-                            <span className="input-icon">⏱️</span>
+                            <span className="input-icon"><Clock3D size={16} /></span>
                             <input 
                               type="number" 
                               step="0.1" 
@@ -813,7 +833,7 @@ const App = () => {
                             className="btn-secondary-action" 
                             disabled={saveLoading || saveSuccess}
                           >
-                            {saveLoading ? 'Saving...' : saveSuccess ? '✓ Saved' : '💾 Save Trip'}
+                            {saveLoading ? 'Saving...' : saveSuccess ? '✓ Saved' : 'Save Trip'}
                           </button>
                         )}
                       </div>
@@ -837,7 +857,7 @@ const App = () => {
                     )}
                     {error && (
                       <div style={{ color: '#ef4444', padding: '12px', fontSize: '13px', background: 'rgba(239, 68, 68, 0.1)', borderRadius: '8px', border: '1px solid rgba(239, 68, 68, 0.2)', fontWeight: 'bold' }}>
-                        ⚠️ {error}
+                        <Warning3D size={14} style={{ marginRight: '6px' }} /> {error}
                       </div>
                     )}
                     {!tripData && !loading && !error && (
@@ -865,7 +885,7 @@ const App = () => {
                                 <span>{event.duration_hours} hrs</span>
                               </div>
                               <div className="timeline-activity">{event.activity}</div>
-                              <div className="timeline-location">📍 {event.location}</div>
+                              <div className="timeline-location" style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}><Pin3D size={12} /> {event.location}</div>
                             </div>
                           </div>
                         ))}
@@ -893,7 +913,7 @@ const App = () => {
             {/* Daily Logs Card */}
             <div className="glass-card">
               <div className="card-header" style={{ paddingBottom: 0, borderBottom: 'none' }}>
-                <h2><span>📊</span> Driver's Daily Log Sheets</h2>
+                <h2 style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><Chart3D size={20} /> Driver's Daily Log Sheets</h2>
                 
                 {tripData && (
                   <div className="log-toggle-container">
@@ -949,7 +969,7 @@ const App = () => {
             {/* History Panel */}
             <div className="glass-card">
               <div className="card-header">
-                <h2><span>🕒</span> Your Saved Trips History</h2>
+                <h2 style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><Clock3D size={20} /> Your Saved Trips History</h2>
                 <span style={{ fontSize: '12px', color: 'var(--color-text-muted)', fontWeight: 'bold' }}>{savedTrips.length} Saved Trips</span>
               </div>
               <div className="card-body">
@@ -970,7 +990,7 @@ const App = () => {
                         style={{ padding: '20px', gap: '8px' }}
                       >
                         <div className="history-item-route" style={{ fontSize: '16px' }}>
-                          📍 {trip.current_location} ➜ {trip.dropoff_location}
+                          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}><Pin3D size={14} /> {trip.current_location} ➜ {trip.dropoff_location}</span>
                         </div>
                         <div style={{ display: 'flex', gap: '15px', color: 'var(--color-text-muted)', fontSize: '13px' }}>
                           <div>Pickup: <strong style={{ color: 'var(--color-text-main)' }}>{trip.pickup_location}</strong></div>
@@ -995,7 +1015,7 @@ const App = () => {
             <div className="ai-drawer-overlay" onClick={() => setIsAiOpen(false)}></div>
             <div className={`ai-drawer ${isAiOpen ? 'open' : ''}`}>
               <div className="ai-drawer-header">
-                <h3>🤖 AI Compliance Assistant</h3>
+                <h3 style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><Robot3D size={18} /> AI Compliance Assistant</h3>
                 <button onClick={() => setIsAiOpen(false)}>✕</button>
               </div>
               <div className="ai-drawer-body">

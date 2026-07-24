@@ -1,5 +1,22 @@
 import React, { useState } from 'react';
 import '../marketing.css';
+import {
+  Lightning3D,
+  Shield3D,
+  Compass3D,
+  Chart3D,
+  Truck3D,
+  Clipboard3D,
+  Map3D,
+  Robot3D,
+  Brain3D,
+  Lock3D,
+  Collaboration3D,
+  Building3D,
+  Bell3D,
+  Clock3D,
+  Envelope3D
+} from './Icon3D';
 
 export default function MarketingPage({ currentPath, navigate, isAuthenticated }) {
   // Who It's For persona switcher state
@@ -29,31 +46,31 @@ export default function MarketingPage({ currentPath, navigate, isAuthenticated }
       title: 'Maintain Bulletproof Fleet Compliance',
       desc: 'Verify driving shift boundaries, consecutive off-duty limits, and cycle recap margins instantly. Audit automated 34h restarts and fuel stops to prevent DOT audit violations before they occur.',
       tag: 'Audit Control',
-      icon: '🛡️'
+      icon: <Shield3D size={20} />
     },
     'Dispatchers': {
       title: 'Plan Optimized Route Dispatch Legs',
       desc: 'Schedule deadheads, loaded legs, and fueling pauses with live maps integration. Seamlessly budget driver shift clocks to accurately predict cargo arrival times at target dropoffs.',
       tag: 'Logistics Control',
-      icon: '🧭'
+      icon: <Compass3D size={20} />
     },
     'Fleet Directors': {
       title: 'Unlock Total Workspace Scalability',
       desc: 'Connect all drivers into a single dispatch terminal. Monitor total planned miles, active logs, compliance rates, and aggregate fuel logs in one comprehensive dashboard.',
       tag: 'Scale Control',
-      icon: '📊'
+      icon: <Chart3D size={20} />
     },
     'Owner-Operators': {
       title: 'Maximize Driving Clocks Profitably',
       desc: 'Quickly plan trip schedules and view daily log previews right from your cabin. Run simulations to keep your consecutive driving logs clean and audit-ready.',
       tag: 'Operator Control',
-      icon: '🚚'
+      icon: <Truck3D size={20} />
     },
     'Safety Auditors': {
       title: 'Accelerate Inspections & Logs Reviews',
       desc: 'Review clean, FMCSA-standard daily log sheet grids on demand. Spot shift clock violations or missing consecutive rest breaks immediately with clear warning labels.',
       tag: 'Verification Control',
-      icon: '📋'
+      icon: <Clipboard3D size={20} />
     }
   };
 
@@ -64,7 +81,7 @@ export default function MarketingPage({ currentPath, navigate, isAuthenticated }
       <nav className="m-navbar">
         <div className="m-nav-container">
           <div className="m-logo" onClick={() => navigate('/')}>
-            <span style={{ fontSize: '18px' }}>⚡</span>
+            <Lightning3D size={18} />
             <span>HOS Planner</span>
           </div>
           <ul className="m-nav-links">
@@ -121,8 +138,8 @@ export default function MarketingPage({ currentPath, navigate, isAuthenticated }
         <header className="m-section">
           <div className="m-hero-grid">
             <div className="m-hero-left">
-              <div className="m-hero-badge">
-                <span>⚡</span> Build AI-powered compliance logistics in minutes
+              <div className="m-hero-badge" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                <Lightning3D size={14} className="icon-float" /> Build AI-powered compliance logistics in minutes
               </div>
               <h1>Simplify FMCSA Compliance. <br />Plan and Audit HOS Logs in Minutes.</h1>
               <p>
@@ -137,7 +154,9 @@ export default function MarketingPage({ currentPath, navigate, isAuthenticated }
             <div className="m-hero-right">
               {/* Floating UI mockups matching clerk/linear cards */}
               <div className="m-floating-card" style={{ transform: 'rotate(-1deg)' }}>
-                <div className="m-floating-card-title">🗺️ Interactive Planner</div>
+                <div className="m-floating-card-title" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <Map3D size={16} /> Interactive Planner
+                </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '13px' }}>
                   <span>Chicago, IL ➜ Dallas, TX</span>
                   <span style={{ color: 'var(--m-accent)', fontWeight: 'bold' }}>821 mi</span>
@@ -145,14 +164,18 @@ export default function MarketingPage({ currentPath, navigate, isAuthenticated }
               </div>
 
               <div className="m-floating-card" style={{ marginLeft: '40px', transform: 'rotate(1deg)' }}>
-                <div className="m-floating-card-title">🤖 AI Assistant</div>
+                <div className="m-floating-card-title" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <Robot3D size={16} /> AI Assistant
+                </div>
                 <p style={{ fontSize: '12px', margin: 0, color: 'var(--m-text-main)' }}>
                   "Driver is entering 34h restart break at Stop 3 (Dallas Pilot Fuel Stop)."
                 </p>
               </div>
 
               <div className="m-floating-card" style={{ transform: 'rotate(-0.5deg)' }}>
-                <div className="m-floating-card-title">📈 Analytics Reports</div>
+                <div className="m-floating-card-title" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <Chart3D size={16} /> Analytics Reports
+                </div>
                 <div style={{ display: 'flex', gap: '20px', marginTop: '4px' }}>
                   <div>
                     <span style={{ fontSize: '10px', color: 'var(--m-text-muted)', display: 'block' }}>COMPLIANCE</span>
@@ -172,25 +195,33 @@ export default function MarketingPage({ currentPath, navigate, isAuthenticated }
         <section className="m-section">
           <div className="m-benefits-grid">
             <div className="m-benefit-card">
-              <div className="m-benefit-icon">🧠</div>
+              <div className="m-benefit-icon">
+                <Brain3D size={28} />
+              </div>
               <h3>AI Powered HOS Router</h3>
               <p>Simulates consecutive shift timelines and automatically overlays mandatory rest intervals and fueling stop limits.</p>
             </div>
             
             <div className="m-benefit-card">
-              <div className="m-benefit-icon">📊</div>
+              <div className="m-benefit-icon">
+                <Chart3D size={28} />
+              </div>
               <h3>Real-Time Analytics</h3>
               <p>Instantly calculates drive hours, cumulative duty periods, and outputs automated recap audit balance logs.</p>
             </div>
 
             <div className="m-benefit-card">
-              <div className="m-benefit-icon">🔒</div>
+              <div className="m-benefit-icon">
+                <Lock3D size={28} />
+              </div>
               <h3>Secure &amp; Reliable</h3>
               <p>Driver sessions and planned route records are securely synced in our high-availability database console.</p>
             </div>
 
             <div className="m-benefit-card">
-              <div className="m-benefit-icon">🤝</div>
+              <div className="m-benefit-icon">
+                <Collaboration3D size={28} />
+              </div>
               <h3>Easy Collaboration</h3>
               <p>Export digital Daily Log mockups and route spreadsheets to safety dispatch desks or inspect stations in one click.</p>
             </div>
@@ -206,37 +237,37 @@ export default function MarketingPage({ currentPath, navigate, isAuthenticated }
           
           <div className="m-showcase-grid">
             <div className="m-showcase-card">
-              <div style={{ fontSize: '28px' }}>🤖</div>
+              <Robot3D size={36} style={{ marginBottom: '16px' }} />
               <h3>AI Compliance Assistant</h3>
               <p>Get real-time feedback on HOS rules shifts, consecutive off-duty exceptions, and 34-hour reset validations via chatbot.</p>
             </div>
 
             <div className="m-showcase-card">
-              <div style={{ fontSize: '28px' }}>🧭</div>
+              <Compass3D size={36} style={{ marginBottom: '16px' }} />
               <h3>Intelligent Route Maps</h3>
               <p>Renders accurate deadhead paths, loaded routes, rest stop overlays, and live coordinates via Leaflet OSM.</p>
             </div>
 
             <div className="m-showcase-card">
-              <div style={{ fontSize: '28px' }}>📋</div>
+              <Clipboard3D size={36} style={{ marginBottom: '16px' }} />
               <h3>Standard Log Sheets</h3>
               <p>Visualizes standard property-carrying grid sheets (Off Duty, Sleeper Berth, Driving, On Duty) matching paper logs.</p>
             </div>
 
             <div className="m-showcase-card">
-              <div style={{ fontSize: '28px' }}>🏢</div>
+              <Building3D size={36} style={{ marginBottom: '16px' }} />
               <h3>Workspace Management</h3>
               <p>Organize trip schedules, select active driver terminals, and customize cycle regulations easily.</p>
             </div>
 
             <div className="m-showcase-card">
-              <div style={{ fontSize: '28px' }}>🔔</div>
+              <Bell3D size={36} style={{ marginBottom: '16px' }} />
               <h3>Safety Alerts</h3>
               <p>Receive notifications for exceeding consecutive drive hours, shift limits, or weekly cycle caps.</p>
             </div>
 
             <div className="m-showcase-card">
-              <div style={{ fontSize: '28px' }}>🕒</div>
+              <Clock3D size={36} style={{ marginBottom: '16px' }} />
               <h3>Saved Trips History</h3>
               <p>Save planned routes and audit timelines securely to your profile and reload them back to the map in a single click.</p>
             </div>
@@ -405,7 +436,7 @@ export default function MarketingPage({ currentPath, navigate, isAuthenticated }
             <div className="m-contact-card" style={{ background: 'var(--m-bg-surface)', border: '1px solid var(--m-border)', borderRadius: '20px', padding: '40px', boxShadow: 'var(--m-shadow-xl)' }}>
               {contactSuccess ? (
                 <div style={{ textAlign: 'center', padding: '20px 0' }}>
-                  <div style={{ fontSize: '48px', marginBottom: '16px' }}>✉️</div>
+                  <Envelope3D size={48} style={{ marginBottom: '16px' }} />
                   <h4 style={{ fontSize: '18px', fontWeight: 'bold', marginBottom: '8px' }}>Thank you, {contactName}!</h4>
                   <p style={{ color: 'var(--m-text-muted)', fontSize: '14px' }}>Your message has been sent. Our safety compliance desk will get back to you shortly.</p>
                   <button className="m-btn-secondary" style={{ marginTop: '20px' }} onClick={handleResetForm}>
@@ -474,7 +505,7 @@ export default function MarketingPage({ currentPath, navigate, isAuthenticated }
       <footer className="m-section" id="about" style={{ paddingBottom: '32px' }}>
         <div className="m-footer-grid">
           <div className="m-footer-brand">
-            <h4>⚡ HOS Planner</h4>
+            <h4 style={{ display: 'flex', alignItems: 'center', gap: '6px' }}><Lightning3D size={18} /> HOS Planner</h4>
             <p>Modern compliance logistics calculators built to simplify commercial trucking rules.</p>
             <div className="m-footer-socials">
               <span className="m-social-icon">𝕏</span>
