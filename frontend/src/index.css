@@ -554,18 +554,18 @@ input:checked + .slider:before {
 .paper-log-sheet.dark-theme {
   background: #0f172a;
   color: #f8fafc;
-  border: 1px solid rgba(0, 229, 255, 0.2);
-  box-shadow: 0 0 30px rgba(0, 229, 255, 0.05);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
 }
 
 .paper-log-sheet.dark-theme .log-meta-grid { border-bottom-color: var(--border-color); }
-.paper-log-sheet.dark-theme .log-meta-item span { color: var(--color-primary); border-bottom-color: var(--border-color); }
+.paper-log-sheet.dark-theme .log-meta-item span { color: #38bdf8; border-bottom-color: var(--border-color); }
 .paper-log-sheet.dark-theme .log-bottom-grid { border-top-color: var(--border-color); }
 .paper-log-sheet.dark-theme .log-remarks h3, 
 .paper-log-sheet.dark-theme .log-recap h3 { border-bottom-color: var(--border-color); color: #f8fafc; }
 .paper-log-sheet.dark-theme .remarks-list li { color: #cbd5e1; border-bottom-color: var(--border-color); }
 .paper-log-sheet.dark-theme .recap-table td { color: #cbd5e1; border-bottom-color: var(--border-color); }
-.paper-log-sheet.dark-theme .recap-table td:last-child { color: var(--color-primary); }
+.paper-log-sheet.dark-theme .recap-table td:last-child { color: #38bdf8; }
 .paper-log-sheet.dark-theme .log-sheet-svg { background: #0b0f19; border: 1px solid var(--border-color); }
 
 .log-meta-grid {

@@ -19,7 +19,7 @@ const LogSheet = ({
   const textBoldColor = isDarkTheme ? '#f8fafc' : '#000000';
   const gridLineColor = isDarkTheme ? 'rgba(255, 255, 255, 0.12)' : '#cccccc';
   const gridBorderColor = isDarkTheme ? 'rgba(255, 255, 255, 0.25)' : '#000000';
-  const blueLabelColor = isDarkTheme ? 'var(--color-primary)' : '#0000bb';
+  const blueLabelColor = isDarkTheme ? '#38bdf8' : '#0000bb';
   const sumBoxFill = isDarkTheme ? '#1e293b' : '#eeeeff';
   const redLineColor = isDarkTheme ? '#ff2a5f' : '#ff0000';
   
